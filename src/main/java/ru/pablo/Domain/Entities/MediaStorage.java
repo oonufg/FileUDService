@@ -1,4 +1,4 @@
-package ru.pablo.Domain;
+package ru.pablo.Domain.Entities;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
@@ -8,7 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public class MediaStorage {
-    private String location = "/mnt/nvme0n1p3/Ved/JavaProjects/FileUDService/src/main/resources/Media";
+    private String location = System.getProperty("user.dir") + "/" + "Media";
+
+    public MediaStorage(){
+        creatDirectoryIfNotExist(Path.of(location));
+    }
     public byte[] getFilePay(String fileName){
         Path pathToFile = getPathToFile(fileName);
         byte[] filePayload = {};
@@ -24,26 +28,31 @@ public class MediaStorage {
 
     public void saveFile(String filename, byte[] payload) {
         Path pathToFileinFileSystem = getPathToFile(filename );
-        createFileIfNotExist(pathToFileinFileSystem);
-        recordBytesInFile(pathToFileinFileSystem, payload);
+        recordByteInFileIfNotExst(pathToFileinFileSystem, payload);
     }
 
     private Path getPathToFile(String filename){
         return Path.of(location, filename);
     }
 
-    private void createFileIfNotExist(Path intendedPathToFile){
+    private void creatDirectoryIfNotExist(Path intendedPathToFile){
         try {
             if (!Files.exists(intendedPathToFile)) {
-                Files.createFile(intendedPathToFile);
+                Files.createDirectory(intendedPathToFile);
             }
         }catch(IOException exception){
-            System.out.println("Failed to create file -> " + exception.getMessage());
+            System.out.println("Failed to create directory -> " + exception.getMessage());
+        }
+    }
+
+    private void recordByteInFileIfNotExst(Path pathToFileInFileSystem, byte[] payload){
+        if(!Files.exists(pathToFileInFileSystem)){
+            recordBytesInFile(pathToFileInFileSystem,payload);
         }
     }
 
     private void recordBytesInFile(Path pathToFile, byte[] filePayload){
-        try (SeekableByteChannel channel = Files.newByteChannel(pathToFile, StandardOpenOption.WRITE)) {
+        try (SeekableByteChannel channel = Files.newByteChannel(pathToFile, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
             channel.truncate(filePayload.length);
             ByteBuffer buffer = ByteBuffer.allocate(filePayload.length);
             for (byte b : filePayload) {

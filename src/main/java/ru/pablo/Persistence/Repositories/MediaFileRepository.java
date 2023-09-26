@@ -1,7 +1,7 @@
 package ru.pablo.Persistence.Repositories;
 
 import ru.pablo.Domain.Entities.MediaFile;
-import ru.pablo.Domain.MediaStorage;
+import ru.pablo.Domain.Entities.MediaStorage;
 import ru.pablo.Persistence.Tables.FilesTable;
 import org.springframework.stereotype.Repository;
 
