@@ -1,0 +1,7 @@
+CREATE TABLE files(
+	uid VARCHAR(50) NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	extension VARCHAR(20) NOT NULL,
+	UNIQUE(uid)
+
+)

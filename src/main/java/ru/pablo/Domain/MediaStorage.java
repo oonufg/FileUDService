@@ -1,6 +1,4 @@
-package Domain;
-import Domain.Entities.MediaFile;
-
+package ru.pablo.Domain;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
@@ -24,15 +22,12 @@ public class MediaStorage {
         return filePayload;
     }
 
-    public void saveFile(MediaFile fileToSave) {
-        Path pathToFileinFileSystem = getPathToFile(fileToSave.getFullName());
+    public void saveFile(String filename, byte[] payload) {
+        Path pathToFileinFileSystem = getPathToFile(filename );
         createFileIfNotExist(pathToFileinFileSystem);
-        recordBytesInFile(pathToFileinFileSystem, fileToSave.getPayload());
+        recordBytesInFile(pathToFileinFileSystem, payload);
     }
 
-    public MediaFile getFile(String filename){
-        return null;
-    }
     private Path getPathToFile(String filename){
         return Path.of(location, filename);
     }

@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     id("org.springframework.boot") version "3.1.4"
+    id("io.spring.dependency-management") version "1.1.3"
 }
 
 group = "org.example"
@@ -16,6 +17,8 @@ dependencies {
     //Spring
 
     implementation("org.springframework.boot:spring-boot-starter-web:3.1.4")
+    implementation("org.postgresql:postgresql:42.6.0")
+
 
 }
 
