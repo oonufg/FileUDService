@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import ru.pablo.Domain.Entities.MediaFile;
 
 @PropertySource("classpath:application.yml")
 @ComponentScan("ru.pablo")
@@ -13,4 +14,3 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
-

@@ -24,6 +24,7 @@ public class FileUDController {
     }
     @GetMapping("/{fileUID}")
     public ResponseEntity<?> handleDownloadFile(@PathVariable("fileUID") String fileUid){
+        System.out.println(fileUid);
         MediaFile fileToSend = repository.getMediaFile(fileUid);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentDisposition(

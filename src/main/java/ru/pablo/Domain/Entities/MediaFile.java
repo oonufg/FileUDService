@@ -24,9 +24,10 @@ public class MediaFile {
     }
 
     public MediaFile(String filename, byte[] payload){
-        String[] parsedFile = filename.split("\\.");
-        this.title = parsedFile[0];
-        this.extension = parsedFile[1];
+        String reversVersion = new StringBuilder(filename).reverse().toString();
+        String[] parsedFile = reversVersion.split("\\.", 2);
+        this.title = new StringBuilder(parsedFile[1]).reverse().toString();
+        this.extension = new StringBuilder(parsedFile[0]).reverse().toString();;
         this.payload = payload;
         this.uid = UUID.nameUUIDFromBytes(payload);
     }
